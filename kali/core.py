@@ -15,16 +15,10 @@ class Kali(object):
     """Kali: a horrifying build tool for LAMPD stacks."""
 
     def __init__(self):
-        # Dictionary of available commands
         self.commands = {}
-
-        # Namespace used to hold all data in Kali
         self.data_namespace = argparse.Namespace()
 
-        # Initialize and load configuration data
         self._loadConfigurationData()
-
-        # Initialize logging facilities
         utils.initializeLogger()
         lg.info("Started Kali.")
 
@@ -35,24 +29,20 @@ class Kali(object):
         self.parser = argparse.ArgumentParser(
             description=self.__doc__,
             formatter_class = argparse.ArgumentDefaultsHelpFormatter,
-            version='2.0',
+            version='0.1',
             prog='kali',
         )
 
-        # Load data and commands into Kali's registry. 
         self._loadCommands()
-
-        # Assemble the parser given the data and commands we've loaded into the
-        # registry.
         self._buildParser()
 
 
     def go(self):
+        """Run the parser, execute the command specified by the user, return a
+        code based on command's return value."""
+
         self._runParser()
-
-        # call the requested command on Kali's complete namespace
         return_code = self.data_namespace.command(self.data_namespace)
-
         exit() if return_code is None else exit(return_code)
 
     def help(self):
@@ -79,7 +69,6 @@ class Kali(object):
         self._loadPluginCommands()
 
     def _loadBuiltinCommands(self):
-        # for each module in command
         for name, obj in inspect.getmembers(commands):
             if inspect.ismodule(obj) and hasattr(obj, 'attach'):
                 if inspect.isfunction(obj.attach):
@@ -152,9 +141,5 @@ if __name__ == '__main__':
     import sys
 
     s = Kali()
-
-    if len(sys.argv) <= 1:
-        s.help()
-    else:
-        args = s.go()
+    s.go() if (len(sys.argv) > 1) else s.help()
 
