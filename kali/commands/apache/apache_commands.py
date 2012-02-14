@@ -53,7 +53,7 @@ class CreateVhost(Command):
         vhost_path, active_path = self._getApachePaths(vhost_filename)
 
         cautious_cmd("tee", vhost_path, sudo=True, stdin=vhost)
-        cautious_cmd("ln", ['-s', vhost_path, active_path], sudo=True, stdin=vhost)
+        cautious_cmd("ln", ['-s', vhost_path, active_path], sudo=True)
 
         self.success("Created and activated vhost.")
 
