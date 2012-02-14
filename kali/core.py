@@ -70,10 +70,10 @@ class Kali(object):
 
     def _loadBuiltinCommands(self):
         for name, obj in inspect.getmembers(commands):
-            if inspect.ismodule(obj) and hasattr(obj, 'attach'):
-                if inspect.isfunction(obj.attach):
-                    # attach kali to all commands in module
-                    obj.attach(self) 
+            if inspect.ismodule(obj) and hasattr(obj, 'attach') \
+              and inspect.isfunction(obj.attach):
+                # attach kali to all commands in module
+                obj.attach(self) 
     
     def _loadPluginCommands(self):
         pass
@@ -90,7 +90,13 @@ class Kali(object):
 
         for c in commandClasses:
             self.addCommand(c)
-
+    
+    def destroy(self, namespace):
+        """Call `.destroy()` on all commands in the system."""
+        for name, obj in self.commands.items():
+            if name != "destory" and hasattr(obj, "destroy"):
+                lg.info("Calling %s.destroy." % name)
+                obj.destroy(namespace)
 
     """
     Commandline parser operations

@@ -65,6 +65,10 @@ class KaliConfiguration(object):
         
     def add(self, section, key, value):
         """Add configuration to Kali."""
+        if not self.parser.has_section(section):
+            lg.debug("Adding section '%s'." % section)
+            self.addSection(section)
+
         lg.debug("Adding %s:%s to section %s of config." \
             % (key, value, section))
         self.parser.set(section, key, value)
@@ -81,6 +85,18 @@ class KaliConfiguration(object):
             pass
 
         return val
+
+    def get_all(self, key_like):
+        """Return all values where `key_like` is in key, independent of
+        section."""
+        vals = []
+
+        for sect, settings in self.dataBySection.items():
+            for key, val in settings.items():
+                if key_like in key:
+                    vals.append(val)
+
+        return vals
 
     @property
     def dataBySection(self):

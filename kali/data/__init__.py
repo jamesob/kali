@@ -1,2 +1,2 @@
-import datum
+from datum import Datum
 

@@ -90,6 +90,10 @@ class Command(object):
         """Signal the success of an action."""
         print msg
 
+    def destroy_success(self, msg):
+        """Signal the success of a dismantling of the artifacts of a command."""
+        print msg
+
     def fillTemplate(self, template_filename, values):
         """Read in a template, fill it out, and return it as a string.
 
