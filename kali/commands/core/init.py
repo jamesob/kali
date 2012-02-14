@@ -34,6 +34,7 @@ class Init(Command):
 
         lg.debug("Creating config.")
         self.initConfig(newPath)
+        self.success("Initialized new Kali instance '%s'." % n.instance_name)
     
     def initConfig(self, directory):
         dot_dir = config.configDirName(directory)

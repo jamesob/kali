@@ -20,7 +20,7 @@ class Kali(object):
 
         self._loadConfigurationData()
         utils.initializeLogger()
-        lg.info("Started Kali.")
+        lg.debug("Started Kali.")
 
         if config.location is None:
             lg.debug("Configuration couldn't be loaded.")

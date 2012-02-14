@@ -58,6 +58,10 @@ class KaliConfiguration(object):
         if self.location is not None:
             self.path = os.path.split(self.location)[0]
             self.parser.read(self.location) # load config data
+    
+    def exists(self):
+        """Return whether or not config currently exists."""
+        return (self.location is not None)
 
     def addSection(self, section):
         """Add a new section to Kali's configuration."""
