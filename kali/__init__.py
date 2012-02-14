@@ -1,7 +1,8 @@
-import commands
-import data
 import utilities
-
-from utilities import config
 from utilities import system
+from utilities import config
+
+import data
+import commands
+
 

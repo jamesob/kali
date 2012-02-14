@@ -3,35 +3,39 @@
 import argparse
 
 class Datum(object):
-    """Signifies an argument to a Kali Command... Basically a piece of data
-    floating around the system."""
+    """Signifies an argument to a Kali Command."""
 
     uniqueName = None
     
     def __init__(self, name, help,
-                             saveToConfig=False,
-                             section=None,
+                             default=None,
                              flags=None, 
                              nargs=None, 
-                             type=str, 
-                             boolean=False):
+                             type=str):
+        """Construct a datum.
+
+        If a deep understanding of this process is really desired, check out
+        the argparse docs.
+
+        :Parameters:
+          - `name`: The name of the argument.
+          - `help`: A help string for the argument.
+          - `default`: A default value for the argument.
+          - `flags`: Flags that serve as an alias for the argument.
+          - `nargs`: The number of arguments.
+          - `type`: The type of argument.
+        """
         self.name = name
         self.help = help
-        self.saveToConfig = saveToConfig
-        self.section = section
+        self.default = default
         
-        # if `flags` is None, we are a positional argument
         if flags is not None:
             self.flags = flags if type(flags) in [list, tuple] else [flags]
         else:
             self.flags = flags
 
         self.nargs = nargs
-        self.boolean = boolean
         self.type = type
-        self.default = None
-
-        self.value = None
 
     def __str__(self):
         return self.name
@@ -53,7 +57,7 @@ class Datum(object):
         """
 
         store_action = 'store'
-        if self.boolean:
+        if self.type == bool:
             store_action = 'store_true'
 
         kwargs = {"action": store_action,
@@ -61,10 +65,10 @@ class Datum(object):
                   "help": self.help,
                   "type": self.type,}
  
-        # if the argument has a default value imported from kali.config, use it
-        if self.name in namespace.__dict__.keys():
-            kwargs["default"] = namespace.__dict__[self.name]
-            print kwargs["default"] + "FOUND"
+        
+        kwargs["default"] = self.default or namespace.__dict__.get(self.name, None)
+
+        
                                                   
         if required: # we are a positional arg
             parser.add_argument(self.name, **kwargs)

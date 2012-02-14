@@ -60,14 +60,8 @@ class Command(object):
     def _preAction(self, namespace):
         """
         To be performed before `self.action` is called.
-        
-        Serialize out the values of all data that is to be saved to the config
-        file.
         """
-        for d in (self.requiredData + self.optionalData):
-            if type(d) is not str and d.saveToConfig:
-                section = d.section or "Environment"
-                config.addData(d.section, d.name, namespace.__dict__[d.name])
+        pass
 
     def _postAction(self, namespace):
         """To be performed after `self.action` is called."""
@@ -92,6 +86,27 @@ class Command(object):
 
         raise NotImplementedError
 
+    def success(self, msg):
+        """Signal the success of an action."""
+        print msg
+
+    def fillTemplate(self, template_filename, values):
+        """Read in a template, fill it out, and return it as a string.
+
+        :Parameters:
+          - `template_filename`: The filename of the template, relative to the
+            directory that contains `self`.
+          - `values`: A dictionary containing values that will be used in the
+            call to `.format()`.
+        """
+        tpl_location = os.path.join(self.containing_directory, template_filename)
+        lg.debug("Attempting to open template at '%s'." % tpl_location)
+
+        with open(tpl_location, 'r') as f:
+          tpl = f.read()
+
+        return tpl.format(**values)
+         
     @property
     def help(self):
         return self.__doc__

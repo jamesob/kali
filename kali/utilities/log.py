@@ -8,7 +8,7 @@ def initializeLogger():
 
     # output all INFO-level logs to stdout
     ch = logging.StreamHandler()
-    ch.setLevel(logging.INFO)
+    ch.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(message)s')
     ch.setFormatter(formatter)
 
