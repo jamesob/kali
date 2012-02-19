@@ -27,9 +27,13 @@ class Init(Command):
 
         newPath = os.path.join(os.getcwd(), n.instance_name)
 
+        lg.info("Trying at %s" % newPath)
+
         try:
-            os.mkdir(newPath)
-        except OSError:
+            if not os.access(newPath, os.F_OK):
+                os.mkdir(newPath)
+        except:
+            lg.warn("Couldn't initialize Kali at '%s'." % newPath)
             return False
 
         lg.debug("Creating config.")
