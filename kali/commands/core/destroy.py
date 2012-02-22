@@ -15,10 +15,6 @@ class Destroy(Command):
     uniqueName = "destroy"
     requiredData = ["site_path"]
 
-    # destroy is the one command that needs a back-reference to Kali
-    # for her index of commands
-    kali = None
-
     def action(self, n):
         self.kali.destroy(n)
 
@@ -30,5 +26,4 @@ class Destroy(Command):
 
 def attach(kali):
     kali.addCommand(Destroy)
-    Destroy.kali = kali
 
