@@ -9,7 +9,7 @@ Drupal builds. It tries to automate boilerplate tasks that arise during
 development of Drupal sites.
 
 Kali reduces to a nice wrapper around various Python libraries, namely
-`argparse`, `logging`, and `subprocess`. Kali's `Command` classes are
+`argparse`, `ConfigParser`, `logging`, and `subprocess`. Kali's `Command` classes are
 subclassed to create new subcommands on an `ArgParser` instance.
 
 ## Why?
