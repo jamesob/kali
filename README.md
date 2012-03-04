@@ -22,6 +22,9 @@ effort for setting up a multi-developer project.
 Boilerplate activities like MySQL and vhost setup are boring, and the details
 of their setup can be located and derived from one place.
 
+Maybe most importantly, a tool like kali will be of huge use for an automated
+continuous-integration environment.
+
 ## Using kali
 
 ### As a Drupal developer
