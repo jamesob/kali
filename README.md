@@ -4,8 +4,8 @@ Inspired by Erik Summerfield's `Shiva`.
 
 ## What?
 
-Kali is a tool written in Python that promotes a sane structure to complex
-Drupal builds. It tries to automate boilerplate tasks that arise during 
+Kali is a tool written in Python that promotes a sane structure for complex
+Drupal builds. It tries to automate boilerplate tasks that arise during
 development of Drupal sites.
 
 Kali reduces to a nice wrapper around various Python libraries, namely
